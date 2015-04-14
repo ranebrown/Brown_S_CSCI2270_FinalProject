@@ -6,9 +6,9 @@
 ##How to Run
 
 ##Dependencies
-cpp-netlib v0.11.1
+[cpp-netlib v0.11.1](http://cpp-netlib.org)
 
-boost v1.57.0
+[boost v1.57.0](http://www.boost.org)
 
 ##System Requirments
 All code was written and tested on a Mac running OSX Yosemite. 
