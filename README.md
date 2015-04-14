@@ -7,6 +7,7 @@
 
 ##Dependencies
 [cpp-netlib v0.11.1](http://cpp-netlib.org)
+...cpp-netlib requres Cmake to build
 
 [boost v1.57.0](http://www.boost.org)
 
