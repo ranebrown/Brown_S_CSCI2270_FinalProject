@@ -4,6 +4,11 @@
 
 
 ##How to Run
+1. Install Dependencies
+2. Run test to ensure cpp-netlib and boost are operating correctly.
+3. Modify makefile so required header files and libraries are referenced correctly.
+4. Compile using makefile.
+5. Run ./test to ensure functions are operating correctly
 
 ##Dependencies
 ###cpp-netlib v0.11.1
