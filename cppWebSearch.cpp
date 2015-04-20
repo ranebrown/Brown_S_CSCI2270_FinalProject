@@ -5,3 +5,19 @@
 */
 
 #include "cppWebSearch.h"
+
+/* 
+* Constructor - creates instance of WebSearch class
+*/
+WebSearch::WebSearch() {
+
+}
+
+/*
+* Destructor - destorys instance of WebSearch class when it goes out of scope
+*/
+WebSearch::~Websearch() {
+
+}
+
+
