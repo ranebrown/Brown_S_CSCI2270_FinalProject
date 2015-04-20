@@ -1,22 +1,47 @@
 # cppWebSearch makefile
+
+# Compiler to use
 CC = g++
 
+# Compiler flags
 CFLAGS = -Wall -Wextra -g
-# -I. look in current directory for header files
-# -I/filepath look in specific directory for header files
-# -L/filepath look in specific directory for libraries (binaries)
-# -lwhatever Include specific library with name "whatever"
-# -g debugging information
+	# -g debugging information
 
+# Include paths for header files
+INCLUDES = -I. -I/Users/Rane/Documents/Programming/Libraries/boost_1_57_0
+	# -I. looks in current directory for header files
 
-OBS = main.o cppWebSearch.o
+# Paths to required libraries
+LFLAGS = -L/Users/Rane/Documents/Programming/Libraries/boost_1_57_0/stage/lib -L/usr/local/lib
 
-all: test
+# The specific libraries that project depends on
+LIBS = -lboost_system -lboost_thread -lcppnetlib-uri -lcppnetlib-client-connections -lssl -lcrypto 
 
-test: $(OBS)
-	$(CC) $(OBS) -o test
+# All source files
+SRCS = main.cpp cppWebSearch.cpp
 
+# All object files
+OBJS = $(SRCS:.cpp=.o)
+	# Uses macro to replace extension of all source files
 
+# name of executable
+MAIN = test
 
+# following section is generic
+
+all: $(MAIN)
+
+$(MAIN): $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)	
+
+# Automatically builds all object files from source files
+.cpp.o:
+	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
+	# -c option compiles but does not link (create object files)
+	# -o is output filename
+
+# This is used in case there is a file named clean 
+.PHONY: clean
 clean:
-	rm *o 
+	rm *.o $(MAIN)
+
