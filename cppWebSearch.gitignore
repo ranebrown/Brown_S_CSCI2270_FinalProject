@@ -1,6 +1,0 @@
-# List of file extensions git will ignore
-
-*.o  
-*.exe 
-*.swo  
-*.out
