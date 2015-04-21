@@ -9,10 +9,6 @@
 
 #include <iostream>
 
-struct WebQueue {
-	
-};
-
 struct WordHash {
 
 };
@@ -22,6 +18,7 @@ class WebSearch {
 		WebSearch();
 		virtual ~WebSearch();
 		void EnqueueSite(std::string url);
+		void BuildQueue(std::string url, int depth);
 		void PrintHTML(std::string url);
 	protected:
 

@@ -30,7 +30,7 @@ int main(/*int argc, char *argv[]*/) {
 					break;
 				}
 				else {
-				
+					newSearch->BuildQueue(url, depth);	
 				}
 				break;
 			case 2: // Search for a word

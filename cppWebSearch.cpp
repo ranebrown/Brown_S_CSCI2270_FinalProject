@@ -7,6 +7,8 @@
 #include "cppWebSearch.h"
 #include <boost/network/protocol/http/client.hpp>
 #include <string>
+#include <queue>
+#include <fstream>
 
 /* 
 * Constructor - creates instance of WebSearch class
@@ -29,6 +31,27 @@ WebSearch::~WebSearch() {
 */
 void WebSearch::EnqueueSite(std::string url) {
 
+}
+
+/*
+* Build Queue scans each website for links and adds the links to a queue. 
+* The queue is set to be of size depth specified by user. Once the queue is full
+* further searching stops.
+*/
+void WebSearch::BuildQueue(std::string url, int depth) {
+	using namespace boost::network;
+
+	// create connection to the entered url and print the html code
+    http::client client;
+    http::client::request request(url);
+    request << header("Connection", "close");
+    http::client::response response = client.get(request);
+	std::ofstream txtFile("temp.txt");
+	if(txtFile.is_open()) {
+		txtFile << body(response);
+		txtFile << "\n";
+	}
+	txtFile.close();
 }
 
 /*
