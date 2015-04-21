@@ -27,4 +27,5 @@
 *.out
 *.app
 
+# Text files are used as temp to parse html
 *.txt
