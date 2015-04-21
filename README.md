@@ -3,13 +3,13 @@
 ##Project Summarry
 Project Name: cppWebSearch
 
-cppWebSearch is a webcrawler/search engine. The goal of the project is to create a simple search program that runs from the commandline. The program operates by downloading the HTML code from a base website and scanning this code for links to other websites. Each website will be stored in a queue and when it is dequeed the text will be scanned for further links. A ranking algorithm will be used to determine the number of occurences of keywords. The user can then enter a word and the website with the highest occurence of that word will be returned. 
+cppWebSearch is a webcrawler/search engine. The goal of the project is to create a simple search program that runs from command-line. The program operates by downloading the HTML code from a base website and scanning this code for links to other websites. Each website will be stored in a queue and when it is dequeued the text will be scanned for further links. A ranking algorithm will be used to determine the number of occurences of keywords. The user can then enter a word and the website with the highest occurence of that word will be returned. 
 
 ##How to Run
 1. Install Dependencies
-2. Run test to ensure cpp-netlib and boost are operating correctly.
+2. If desired run tests from cpp-netlib and boost websites to ensure dependencies are operating correctly.
 3. Modify makefile so required header files and libraries are referenced correctly.
-4. Compile using makefile.
+4. Compile using `make`
 5. Run ./test to ensure functions are operating correctly
 
 ##Dependencies
