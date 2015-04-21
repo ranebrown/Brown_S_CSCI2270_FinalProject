@@ -12,7 +12,7 @@ INCLUDES = -I. -I/Users/Rane/Documents/Programming/Libraries/boost_1_57_0
 	# -I. looks in current directory for header files
 
 # Paths to required libraries
-LFLAGS = -L/Users/Rane/Documents/Programming/Libraries/boost_1_57_0/stage/lib -L/usr/local/lib
+LFLAGS = -L/Users/Rane/Documents/Programming/Libraries/boost_1_57_0/stage/lib -L/usr/local/lib -L/Users/Rane/Documents/Programming/Libraries/cpp-netlib-0.11.1-final
 
 # The specific libraries that project depends on
 LIBS = -lboost_system -lboost_thread -lcppnetlib-uri -lcppnetlib-client-connections -lssl -lcrypto 
