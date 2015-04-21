@@ -16,7 +16,7 @@ WebSearch::WebSearch() {
 /*
 * Destructor - destorys instance of WebSearch class when it goes out of scope
 */
-WebSearch::~Websearch() {
+WebSearch::~WebSearch() {
 
 }
 
@@ -25,7 +25,7 @@ WebSearch::~Websearch() {
 * of sites that are waiting to be searched for further links and keywords.
 * Format of url is http://www."remainder of address"
 */
-void WebSearch::EnqueueSite(std::string address) {
+void WebSearch::EnqueueSite(std::string url) {
 
 }
 

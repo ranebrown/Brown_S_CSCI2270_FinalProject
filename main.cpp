@@ -8,10 +8,10 @@
 #include "cppWebSearch.h"
 
 int main(int argc, char *argv[]) {
-	WebSearch *newSearch;
+	WebSearch *newSearch = new WebSearch;
 	std::string url;
+	std::cout<<"Enter a url\n";
 	getline(std::cin, url);
-	std::cout << url << std::endl;
 	newSearch->PrintHTML(url);	
 	return 0;
 }

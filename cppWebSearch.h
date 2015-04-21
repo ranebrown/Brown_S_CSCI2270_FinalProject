@@ -12,11 +12,11 @@
 
 struct WebQueue {
 	
-}
+};
 
 struct WordHash {
 
-}
+};
 
 class WebSearch {
 	public:
@@ -28,6 +28,6 @@ class WebSearch {
 
 	private:
 
-}
+};
 
 #endif // cppWebSearch_H 

@@ -1,7 +1,7 @@
 # cppWebSearch makefile
 
 # Compiler to use
-CC = g++
+CC = clang++
 
 # Compiler flags
 CFLAGS = -Wall -Wextra -g
@@ -35,10 +35,10 @@ $(MAIN): $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)	
 
 # Automatically builds all object files from source files
+# -c option compiles but does not link (create object files)
+# -o is output filename
 .cpp.o:
 	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
-	# -c option compiles but does not link (create object files)
-	# -o is output filename
 
 # This is used in case there is a file named clean 
 .PHONY: clean
