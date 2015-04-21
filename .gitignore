@@ -1,6 +1,0 @@
-# List of file extensions git will ignore
-
-*.o 	# object files
-*.exe 	# executable files
-*.swo 	# swap files
-*~ 		# backup files added by text editors
