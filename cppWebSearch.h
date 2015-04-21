@@ -22,7 +22,8 @@ class WebSearch {
 	public:
 		WebSearch();
 		virtual ~WebSearch();
-		void EnqueueSite(std::string address);
+		void EnqueueSite(std::string url);
+		void PrintHTML(std::string url);
 	protected:
 
 	private:
