@@ -10,7 +10,7 @@ cppWebSearch is a webcrawler/search engine. The goal of the project is to create
 2. If desired run tests from cpp-netlib and boost websites to ensure dependencies are operating correctly.
 3. Modify makefile so required header files and libraries are referenced correctly.
 4. Compile using `make`
-5. Run ./test to ensure functions are operating correctly
+5. Run `./test` to ensure functions are operating correctly
 
 ##Dependencies
 ###cpp-netlib v0.11.1
