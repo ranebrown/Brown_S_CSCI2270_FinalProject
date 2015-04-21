@@ -8,7 +8,6 @@
 #define cppWebSearch_H
 
 #include <iostream>
-#include <boost/network/protocol/http/client.hpp>
 
 struct WebQueue {
 	

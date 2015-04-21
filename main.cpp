@@ -7,7 +7,7 @@
 
 #include "cppWebSearch.h"
 
-int main(int argc, char *argv[]) {
+int main(/*int argc, char *argv[]*/) {
 	WebSearch *newSearch = new WebSearch;
 	std::string url;
 	std::cout<<"Enter a url\n";

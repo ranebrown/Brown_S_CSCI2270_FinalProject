@@ -5,6 +5,8 @@
 */
 
 #include "cppWebSearch.h"
+#include <boost/network/protocol/http/client.hpp>
+#include <string>
 
 /* 
 * Constructor - creates instance of WebSearch class
@@ -34,9 +36,18 @@ void WebSearch::EnqueueSite(std::string url) {
 * Format of url is http://www."remainder of address"
 */
 void WebSearch::PrintHTML(std::string url) {     
-
+	std::string valid = "http://www.";
+	std::string check(url, 0, 11); //writes the first 11 characters of url to string check
+	
+	// Check if a valid url was entered
+	if(valid.compare(check) != 0) {
+		std::cout<<"invalid url\n"<<"url must begin with http://www.\n";
+		return;
+	}
+	
 	using namespace boost::network;
-
+	
+	// create connection to the entered url and print the html code
     http::client client;
     http::client::request request(url);
     request << header("Connection", "close");
