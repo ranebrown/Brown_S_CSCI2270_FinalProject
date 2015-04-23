@@ -8,6 +8,7 @@
 #define cppWebSearch_H
 
 #include <iostream>
+#include <queue>
 
 struct WordHash {
 
