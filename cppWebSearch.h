@@ -23,7 +23,7 @@ class WebSearch {
 	protected:
 
 	private:
-
+		std::queue<std::string> urlList; // queue to store list of urls up to specified depth
 };
 
 inline void DisplayMenu() {
