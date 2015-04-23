@@ -42,10 +42,13 @@ int main(/*int argc, char *argv[]*/) {
 				getline(std::cin, url);
 				newSearch->PrintHTML(url);
 				break;
-			case 4: // Clear saved url's and words
+			case 4: // Print saved url's 
+				newSearch->PrintURLs();
+				break;
+			case 5: // Clear saved url's and words
 				
 				break;
-			case 5: // Quit
+			case 6: // Quit
 				std::cout << "Goodbye!" << std::endl;
 				quit = true;
 				break;
