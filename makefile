@@ -45,3 +45,5 @@ $(MAIN): $(OBJS)
 clean:
 	rm *.o $(MAIN)
 
+rmo: 
+	rm *.o
