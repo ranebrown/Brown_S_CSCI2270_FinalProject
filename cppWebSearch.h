@@ -21,7 +21,8 @@ class WebSearch {
 		void EnqueueSite(std::string url);
 		void BuildQueue(std::string url, int depth);
 		void PrintHTML(std::string url);
-		bool isUnique(std::string url); // checks if url is already in queue
+		bool IsUnique(std::string url); // checks if url is already in queue
+		void PrintURLs();
 	protected:
 
 	private:
@@ -34,8 +35,9 @@ inline void DisplayMenu() {
 	cout << "1. Initialize cppWebSearch" << endl;
 	cout << "2. Search for a word" << endl;
 	cout << "3. Print HTML code" << endl;
-	cout << "4. Clear saved data" << endl;
-	cout << "5. Quit" << endl;
+	cout << "4. Print saved URLs" << endl;
+	cout << "5. Clear saved data" << endl;
+	cout << "6. Quit" << endl;
 }
 
 #endif // cppWebSearch_H 

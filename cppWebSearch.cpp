@@ -30,7 +30,8 @@ WebSearch::~WebSearch() {
 * Format of url is http://www."remainder of address"
 */
 void WebSearch::EnqueueSite(std::string url) {
-
+	urlList.push(url);
+	std::cout<<url<<" has been added to queue\n";
 }
 
 /*
@@ -40,6 +41,10 @@ void WebSearch::EnqueueSite(std::string url) {
 */
 void WebSearch::BuildQueue(std::string url, int depth) {
 	using namespace boost::network;
+	if(!urlList.empty()) {
+		std::cout<<"Base queue of urls has already been built\n";
+		return;
+	}
 	urlList.push(url); // add url to queue
 	bool scan = true;
 	std::queue<std::string> tempQ;
@@ -86,7 +91,7 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 					end = temp.find('"',start); // find the end of the url (assuming url in inside "quotes")
 					if(start != std::string::npos && end != std::string::npos) {
 						std::string foundURL = temp.substr(start, (end-start)); // extract only the url
-						unique = isUnique(foundURL); // check if found url is unique (hasn't already been found)
+						unique = IsUnique(foundURL); // check if found url is unique (hasn't already been found)
 						if(unique == true) {
 							urlList.push(foundURL);
 							tempQ.push(foundURL);
@@ -96,18 +101,13 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 			}	
 		}
 	}
-	while(!urlList.empty()) {
-		url = urlList.front();
-		urlList.pop();
-		std::cout<<url<<std::endl;
-	}
 }
 
 /*
 * Takes a url as input and checks if that url has already been added to queue.
 * If it has already been added returns false. Otherwise returns true.
 */
-bool WebSearch::isUnique(std::string url) {
+bool WebSearch::IsUnique(std::string url) {
 	bool unique = true;
 	std::queue<std::string> tempQueue;
 	std::string dqURL;
@@ -153,4 +153,27 @@ void WebSearch::PrintHTML(std::string url) {
     http::client::response response = client.get(request);
     std::cout << body(response) << std::endl;
 
+}
+
+/*
+* Prints all saved urls while preserving the original queue
+*/
+void WebSearch::PrintURLs() {
+	std::queue<std::string> tempQueue;
+	std::string dqURL;
+
+	// copy queue to temp location
+	while(!urlList.empty()) {
+		dqURL = urlList.front();
+		urlList.pop();
+		tempQueue.push(dqURL);
+	}
+
+	// Print all queued urls
+	while(!tempQueue.empty()) {
+		dqURL = tempQueue.front();
+		tempQueue.pop();
+		std::cout<<dqURL<<std::endl;
+		urlList.push(dqURL);
+	}
 }
