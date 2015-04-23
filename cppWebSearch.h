@@ -20,6 +20,7 @@ class WebSearch {
 		void EnqueueSite(std::string url);
 		void BuildQueue(std::string url, int depth);
 		void PrintHTML(std::string url);
+		bool isUnique(std::string url); // checks if url is already in queue
 	protected:
 
 	private:
