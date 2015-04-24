@@ -1,4 +1,5 @@
-/* cppWebSearch.cpp
+/* Project: cppWebSearch
+ * File: cppWebSearch.cpp
  *
  * Created by Rane Brown 4/19/2015
  *
@@ -18,7 +19,7 @@ WebSearch::WebSearch() {
 }
 
 /*
-* Destructor - destorys instance of WebSearch class when it goes out of scope
+* Destructor - destroys instance of WebSearch class when it goes out of scope
 */
 WebSearch::~WebSearch() {
 
@@ -162,6 +163,9 @@ void WebSearch::PrintURLs() {
 	std::queue<std::string> tempQueue;
 	std::string dqURL;
 
+	if(urlList.empty)
+		std::cout<<"No urls in queue, they have already been processed or not yet stored\n";
+
 	// copy queue to temp location
 	while(!urlList.empty()) {
 		dqURL = urlList.front();
@@ -175,5 +179,55 @@ void WebSearch::PrintURLs() {
 		tempQueue.pop();
 		std::cout<<dqURL<<std::endl;
 		urlList.push(dqURL);
+	}
+}
+
+void WebSearch::StoreWords() {
+	using namespace boost::network;
+	if(urlList.empty()) {
+		std::cout<<"There are no URLs to process for words.\n";
+		return;
+	}
+	std::string url;
+	bool scan;
+	while(!urlList.empty()) {
+		scan = true;
+		url = urlList.front();
+		urlList.pop();
+		usleep(200000); // .2 second delay
+
+		// create connection to url and save html code to a text file
+   		try {
+			std::cout<<"Processing: "<<url<<" for words\n";
+			http::client client;
+    		http::client::request request(url);
+    		request << header("Connection", "close");
+    		http::client::response response = client.get(request);
+			remove("temp.txt"); // delete old temporary text file
+			std::ofstream tempOut("temp.txt");
+			if(tempOut.is_open()) {
+				tempOut << body(response);
+				tempOut << "\n";
+			}
+			tempOut.close();
+		}
+		catch(boost::system::system_error const& ec) {
+			std::cout<<"Connection error to url: "<<url<<std::endl;
+			std::cout<<"Remainder of URLs will process\n";
+			scan = false;
+			
+		}
+		if(scan == true) {
+			// open the text file and scan for urls
+			std::ifstream tempIn("temp.txt");
+			if(!tempIn.is_open())
+				std::cout<<"Error opening file\n";
+			else {
+				std::string temp;
+				while(getline(tempIn,temp,' ')) {
+					hTable.Insert(temp,url); // store the word and related url in hash table
+				}
+			}	
+		}
 	}
 }
