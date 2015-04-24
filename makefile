@@ -18,7 +18,7 @@ LFLAGS = -L/Users/Rane/Documents/Programming/Libraries/boost_1_57_0/stage/lib -L
 LIBS = -lboost_system -lboost_thread -lcppnetlib-uri -lcppnetlib-client-connections -lssl -lcrypto 
 
 # All source files
-SRCS = main.cpp cppWebSearch.cpp
+SRCS = main.cpp cppWebSearch.cpp hash.cpp
 
 # All object files
 OBJS = $(SRCS:.cpp=.o)
