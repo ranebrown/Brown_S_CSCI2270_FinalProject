@@ -68,8 +68,27 @@ void HashTable::Delete(std::string in_word){
 }
 
 void HashTable::Print(){
-
-
+	int i;
+	int empty = 0;
+	for(i=0; i<tableSize; i++)
+		if(baseArray[i].hasValue == false)
+			empty++;
+	if(empty == tableSize)
+		std::cout<<"There are no stored words.\n";
+	else {
+		for(i=0; i<tableSize; i++) {
+			if(baseArray[i].hasValue == true) {
+				std::cout<<baseArray[i].word<<":"<<baseArray[i].url<<baseArray[i].count<<std::endl;
+				if(baseArray[i].next != nullptr) {
+					WordStruct *temp = baseArray[i].next;
+					while(temp != nullptr) {
+						std::cout<<temp->word<<":"<<temp->url<<temp->count<<std::endl;
+						temp = temp->next;
+					}
+				}
+			}
+		}
+	}
 }
 
 int HashTable::HashSum(std::string word){
