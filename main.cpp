@@ -1,5 +1,5 @@
-/* cppWebSearch
- * main.cpp
+/* Project: cppWebSearch
+ * File: main.cpp
  *
  * Created by Rane Brown 4/19/2015
  *
@@ -30,12 +30,14 @@ int main(/*int argc, char *argv[]*/) {
 					break;
 				}
 				else {
-					newSearch->BuildQueue(url, depth);	
+					newSearch->BuildQueue(url, depth);
+					newSearch->StoreWords();	
 				}
 				break;
 			case 2: // Search for a word
 				std::cout<<"Enter a word to search for:\n";
 				getline(std::cin, searchWord);
+				newSearch->PrintWords();
 				break;
 			case 3: // Print HTML
 				std::cout<<"Enter URL:\n";
