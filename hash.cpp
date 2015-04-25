@@ -92,7 +92,7 @@ void HashTable::Print(){
 }
 
 int HashTable::HashSum(std::string word){
-	int location = 0;
+	unsigned int location = 0;
 	for(unsigned long i=0; i<word.length(); i++) {
 		location += word[i]; // sum ascii values of all characters in string
 	}
