@@ -22,17 +22,33 @@ void HashTable::Insert(std::string in_word, std::string url){
 	// location has no values yet
 	if(baseArray[location].hasValue == false) {
 		baseArray[location].word = in_word;
-		baseArray[location].url = url;
-		baseArray[location].count = 1;
+		// TopURL struct stores each website and the number of occurences of a word in that site
+		TopURL *cU = new TopURL;
+		cU->count = 1;
+		cU->url = url;
+		baseArray[location].wOccr.push_back(cU);
 		baseArray[location].hasValue = true;
 	}
 
 	// location already has at least one word stored
 	else {
 		WordStruct *temp = &baseArray[location];
-		// if word already added just increment count
+		// if word already added increment count
 		if(temp->word == in_word) {
-			temp->count++;
+			for(int i=0; i<(int)temp->wOccr.size(); i++) {
+				// same word found within the same website
+				if(temp->wOccr[i]->url == url) {
+					temp->wOccr[i]->count++;
+					return;
+				}
+			}
+
+			// same word found within a different website
+			TopURL *cU = new TopURL;
+			cU->count = 1;
+			cU->url = url;
+			temp->wOccr.push_back(cU);
+			//temp->count++;
 			return;
 		}
 
@@ -41,7 +57,20 @@ void HashTable::Insert(std::string in_word, std::string url){
 			temp = temp->next;
 			// if word already added just increment count
 			if(temp->word == in_word) {
-				temp->count++;
+				for(int i=0; i<(int)temp->wOccr.size(); i++) {
+					// same word found within the same website
+					if(temp->wOccr[i]->url == url) {
+						temp->wOccr[i]->count++;
+						return;
+					}
+				}
+
+				// same word found within a different website
+				TopURL *cU = new TopURL;
+				cU->count = 1;
+				cU->url = url;
+				temp->wOccr.push_back(cU);
+				//temp->count++;
 				return;
 			}
 		}
@@ -49,8 +78,10 @@ void HashTable::Insert(std::string in_word, std::string url){
 		// create new struct and initialize parameters
 		WordStruct *toInsert = new WordStruct;
 		toInsert->word = in_word;
-		toInsert->url = url;
-		toInsert->count = 1;
+		TopURL *cU = new TopURL;
+		cU->count = 1;
+		cU->url = url;
+		toInsert->wOccr.push_back(cU);
 		toInsert->hasValue = true;
 		toInsert->next = nullptr;
 		temp->next = toInsert;
@@ -78,11 +109,11 @@ void HashTable::Print(){
 	else {
 		for(i=0; i<tableSize; i++) {
 			if(baseArray[i].hasValue == true) {
-				std::cout<<baseArray[i].word<<":"<<baseArray[i].url<<baseArray[i].count<<std::endl;
+				std::cout<<baseArray[i].word<<std::endl;
 				if(baseArray[i].next != nullptr) {
 					WordStruct *temp = baseArray[i].next;
 					while(temp != nullptr) {
-						std::cout<<temp->word<<":"<<temp->url<<temp->count<<std::endl;
+						std::cout<<temp->word<<std::endl;
 						temp = temp->next;
 					}
 				}

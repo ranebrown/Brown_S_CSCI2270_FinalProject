@@ -10,11 +10,18 @@
 
 #include <iostream>
 #include <queue>
+#include <vector>
+
+struct TopURL {
+	int count;
+	std::string url;
+};
 
  struct WordStruct {
  	std::string word;
- 	std::string url;
- 	int count;
+ 	// std::string url;
+ 	// int count;
+ 	std::vector<TopURL*> wOccr;
  	bool hasValue;
  	WordStruct *next;
  };
