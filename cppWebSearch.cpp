@@ -88,6 +88,8 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 				std::size_t start, end;
 				bool unique;
 				while(getline(tempIn,temp,' ')) {
+					if(urlList.size() >= depth)
+						break;
 					start = temp.find("http://www."); // find the beginning of a new url
 					end = temp.find('"',start); // find the end of the url (assuming url in inside "quotes")
 					if(start != std::string::npos && end != std::string::npos) {
@@ -240,4 +242,8 @@ void WebSearch::StoreWords() {
 
 void WebSearch::PrintWords() {
 	hTable.Print();
+}
+
+void WebSearch::FindWebsite(std::string word) {
+	hTable.Find(word);
 }

@@ -35,9 +35,10 @@ int main(/*int argc, char *argv[]*/) {
 				}
 				break;
 			case 2: // Search for a word
+				std::cout<<"Function will display the website with highest occurence of entered word.\n";
 				std::cout<<"Enter a word to search for:\n";
 				getline(std::cin, searchWord);
-				newSearch->PrintWords();
+				newSearch->FindWebsite(searchWord);
 				break;
 			case 3: // Print HTML
 				std::cout<<"Enter URL:\n";
@@ -50,7 +51,10 @@ int main(/*int argc, char *argv[]*/) {
 			case 5: // Clear saved url's and words
 				
 				break;
-			case 6: // Quit
+			case 6: // Print all stored words
+				newSearch->PrintWords();
+				break;
+			case 7: // Quit
 				std::cout << "Goodbye!" << std::endl;
 				quit = true;
 				break;

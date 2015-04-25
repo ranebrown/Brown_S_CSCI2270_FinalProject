@@ -89,7 +89,41 @@ void HashTable::Insert(std::string in_word, std::string url){
 }
 
 void HashTable::Find(std::string in_word){
-
+	int location = HashSum(in_word);
+	if(baseArray[location].hasValue == false) {
+		std::cout<<"Word not found\n";
+		return;
+	}
+	if(baseArray[location].word == in_word) {
+		int max = 0;
+		std::string bestURL;
+		WordStruct *temp = &baseArray[location];
+		for(int i=0; i<(int)temp->wOccr.size(); i++) {
+			if(temp->wOccr[i]->count > max) {
+				max = temp->wOccr[i]->count;
+				bestURL = temp->wOccr[i]->url;
+			}
+		}
+		std::cout<<"Best website is: "<<bestURL<<"\n"<<in_word<<" count = "<< max << std::endl;
+		return;
+	}
+	else {
+		int max = 0;
+		std::string bestURL;
+		WordStruct *temp = &baseArray[location];
+		while(temp->next != nullptr) {
+			temp = temp->next;
+			if(temp->word == in_word)
+				break;
+		}
+		for(int i=0; i<(int)temp->wOccr.size(); i++) {
+			if(temp->wOccr[i]->count > max) {
+				max = temp->wOccr[i]->count;
+				bestURL = temp->wOccr[i]->url;
+			}
+		}
+		std::cout<<"Best website is: "<<bestURL<<"\n"<<in_word<<" count = "<< max << std::endl;
+	}
 
 }
 

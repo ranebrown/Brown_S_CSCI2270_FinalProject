@@ -52,6 +52,7 @@ class WebSearch {
 		void PrintURLs();
 		void StoreWords();
 		void PrintWords();
+		void FindWebsite(std::string word);
 	protected:
 
 	private:
@@ -67,7 +68,8 @@ inline void DisplayMenu() {
 	cout << "3. Print HTML code" << endl;
 	cout << "4. Print saved URLs" << endl;
 	cout << "5. Clear saved data" << endl;
-	cout << "6. Quit" << endl;
+	cout << "6. Print all saved words" << endl;
+	cout << "7. Quit" << endl;
 }
 
 #endif // cppWebSearch_H 
