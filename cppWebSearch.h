@@ -44,6 +44,7 @@ class WebSearch {
 		bool IsUnique(std::string url); // checks if url is already in queue
 		void PrintURLs();
 		void StoreWords();
+		void PrintWords();
 	protected:
 
 	private:
