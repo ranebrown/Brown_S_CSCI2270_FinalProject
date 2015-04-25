@@ -97,11 +97,13 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 							urlList.push(foundURL);
 							tempQ.push(foundURL);
 						}
-					}	
+					}
+					if( tempIn.eof() ) break;	
 				}
 			}	
 		}
 	}
+	std::cout<<"...................\n";
 }
 
 /*
@@ -163,7 +165,7 @@ void WebSearch::PrintURLs() {
 	std::queue<std::string> tempQueue;
 	std::string dqURL;
 
-	if(urlList.empty)
+	if(urlList.empty())
 		std::cout<<"No urls in queue, they have already been processed or not yet stored\n";
 
 	// copy queue to temp location
@@ -224,10 +226,18 @@ void WebSearch::StoreWords() {
 				std::cout<<"Error opening file\n";
 			else {
 				std::string temp;
+				int i = 0;
 				while(getline(tempIn,temp,' ')) {
+					i++;
 					hTable.Insert(temp,url); // store the word and related url in hash table
+					if( tempIn.eof() ) break;
 				}
+				std::cout<<"\t found:"<<i<<" words"<<std::endl;
 			}	
 		}
 	}
+}
+
+void WebSearch::PrintWords() {
+	hTable.Print();
 }
