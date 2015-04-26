@@ -212,6 +212,10 @@ void WebSearch::PrintURLs() {
 	}
 }
 
+/*
+* Processes each URL in the queue for words. Function stores each word and the 
+* number of times that word occurs in each website
+*/
 void WebSearch::StoreWords() {
 	using namespace boost::network;
 	if(urlList.empty()) {
@@ -284,14 +288,24 @@ void WebSearch::StoreWords() {
 	}
 }
 
+/*
+* Prints all stored words
+*/
 void WebSearch::PrintWords() {
 	hTable.Print();
 }
 
+/* 
+* Searches for the website that contains the highest occurence of a user specifed word
+* Prints the found website url
+*/
 void WebSearch::FindWebsite(std::string word) {
 	hTable.Find(word);
 }
 
+/*
+* Deletes all stored words and URLs
+*/
 void WebSearch::ClearAll() {
 	// clear hash table values
 	hTable.Clear();

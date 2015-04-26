@@ -12,15 +12,15 @@
 #include <queue>
 #include <vector>
 
+// helper struct to store the occurence of a word per website
 struct TopURL {
 	int count;
 	std::string url;
 };
 
- struct WordStruct {
+// struct to store words and urls in hash table
+struct WordStruct {
  	std::string word;
- 	// std::string url;
- 	// int count;
  	std::vector<TopURL*> wOccr;
  	bool hasValue;
  	WordStruct *next;

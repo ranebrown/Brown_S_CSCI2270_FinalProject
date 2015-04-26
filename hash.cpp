@@ -1,5 +1,8 @@
 #include "cppWebSearch.h"
 
+/*
+* Constructor to create base hash table
+*/
 HashTable::HashTable() {
 	tableSize = 500;
 	baseArray = new WordStruct[tableSize]; // array of structs to hold words
@@ -11,6 +14,9 @@ HashTable::HashTable() {
 	}
 }
 
+/*
+* Destructor, frees all memory that was allocated in relation to hash table
+*/
 HashTable::~HashTable(){
 	// delete all linked list word structs and all top url structs in vector
 	for(int i=0; i<tableSize; i++) {
@@ -29,6 +35,11 @@ HashTable::~HashTable(){
 	delete [] baseArray;
 }
 
+/*
+* Calculates the hash table location for a processed word. If the word has already been found
+* within a website the count for that word is incremented. If the word is found in a new website
+* that website url is stored.
+*/
 void HashTable::Insert(std::string in_word, std::string url){
 	int location = HashSum(in_word);
 
@@ -101,6 +112,9 @@ void HashTable::Insert(std::string in_word, std::string url){
 	}
 }
 
+/*
+* Searches for the website that has the highest occurence of entered word
+*/
 void HashTable::Find(std::string in_word){
 	int location = HashSum(in_word);
 	if(baseArray[location].hasValue == false) {
@@ -144,6 +158,9 @@ void HashTable::Find(std::string in_word){
 
 }
 
+/*
+* Prints all words stored in the hash table
+*/
 void HashTable::Print(){
 	int i;
 	int empty = 0;
@@ -168,6 +185,9 @@ void HashTable::Print(){
 	}
 }
 
+/* 
+* Calculates the hash sum needed to acces correct element of array
+*/
 int HashTable::HashSum(std::string word){
 	unsigned int location = 0;
 	for(unsigned long i=0; i<word.length(); i++) {
@@ -177,6 +197,9 @@ int HashTable::HashSum(std::string word){
 	return location;
 }
 
+/*
+* Clears all values stored in hash table
+*/
 void HashTable::Clear() {
 	for(int i=0; i<tableSize; i++) {
 		if(baseArray[i].next != nullptr) {

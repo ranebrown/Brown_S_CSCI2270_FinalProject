@@ -13,6 +13,7 @@ int main(/*int argc, char *argv[]*/) {
 	int selection, depth;
 	bool quit = false;
 
+	// display menu and get user input
 	while(!quit) {
 		DisplayMenu();
 		std::cin>>selection;
