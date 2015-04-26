@@ -29,3 +29,5 @@
 
 # Text files are used as temp to parse html
 *.txt
+
+*.DS_Store
