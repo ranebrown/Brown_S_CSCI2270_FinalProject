@@ -67,4 +67,3 @@ When using boost in conjunctio with cpp-netlib it is not possible to run lldb de
 
 Due to the above issues debugging was conducted by commenting out sections of code that request a http connection.
 
-If an invalid url is entered it is possible to get memory allocation errors that aren't caught. No solution for this has been found. 
