@@ -57,6 +57,8 @@ All code was written and tested on a Mac running OSX Yosemite.
 
 All dependencies are compatible with Windows and Linux. It should be possible to run the main program on these OS's but it has not been tested.
 
+Header file used for time delay is different in Windows (windows.h) instead of unistd.h in Unix. Function is also Sleep(milliseconds) in windows instead of usleep(microseconds) in Unix
+
 ##Group Members
 Rane Brown
 
