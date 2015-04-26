@@ -69,3 +69,4 @@ When using boost in conjunctio with cpp-netlib it is not possible to run lldb de
 
 Due to the above issues debugging was conducted by commenting out sections of code that request a http connection.
 
+There may be issues with certain websites processing correctly. Ex. http://www.stackexchange.com creates a malloc error if depth is >1. With above debugging problem this error is difficult to track down. 
