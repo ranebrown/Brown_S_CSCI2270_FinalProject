@@ -204,6 +204,7 @@ void HashTable::Clear() {
 	for(int i=0; i<tableSize; i++) {
 		if(baseArray[i].next != nullptr) {
 		 	WordStruct *temp = baseArray[i].next;
+		 	baseArray[i].next = nullptr;
 		 	WordStruct *prev;
 		 	while(temp->next != nullptr) {
 		 		prev = temp;

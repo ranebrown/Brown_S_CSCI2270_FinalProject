@@ -43,7 +43,7 @@ $(MAIN): $(OBJS)
 # This is used in case there is a file named clean 
 .PHONY: clean
 clean:
-	rm *.o $(MAIN)
+	rm *.o $(MAIN) *.txt
 
 rmo: 
 	rm *.o
