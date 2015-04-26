@@ -78,6 +78,19 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 			if(urlList.size() ==1)
 				break;
 		}
+		catch(std::bad_alloc& ba) {
+			std::cout<<"Allocation error with:"<<url<<std::endl;
+			scan = false;
+			if(urlList.size() ==1)
+				break;
+		}
+		catch (const std::length_error& le) {
+			std::cout<<"Length error with:"<<url<<std::endl;
+			scan = false;
+			if(urlList.size() ==1)
+				break;
+		}
+
 		if(scan == true) {
 			// open the text file and scan for urls
 			std::ifstream tempIn("temp.txt");
@@ -88,7 +101,7 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 				std::size_t start, end;
 				bool unique;
 				while(getline(tempIn,temp,' ')) {
-					if(urlList.size() >= depth)
+					if((int)urlList.size() >= depth)
 						break;
 					start = temp.find("http://www."); // find the beginning of a new url
 					end = temp.find('"',start); // find the end of the url (assuming url in inside "quotes")
@@ -106,6 +119,7 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 		}
 	}
 	std::cout<<"...................\n";
+	StoreWords();
 }
 
 /*
@@ -150,14 +164,26 @@ void WebSearch::PrintHTML(std::string url) {
 	}
 	
 	using namespace boost::network;
-	
-	// create connection to the entered url and print the html code
-    http::client client;
-    http::client::request request(url);
-    request << header("Connection", "close");
-    http::client::response response = client.get(request);
-    std::cout << body(response) << std::endl;
 
+	try {
+		http::client client;
+		http::client::request request(url);
+		request << header("Connection", "close");
+		http::client::response response = client.get(request);
+		std::cout << body(response) << std::endl;
+	}
+	catch(boost::system::system_error const& ec) {
+		std::cout<<"Connection error to url: "<<url<<std::endl;
+		return;
+	}
+	catch(std::bad_alloc& ba) {
+		std::cout<<"Allocation error with:"<<url<<std::endl;
+		return;
+	}
+	catch (const std::length_error& le) {
+		std::cout<<"Length error with:"<<url<<std::endl;
+		return;
+	}
 }
 
 /*
@@ -194,10 +220,12 @@ void WebSearch::StoreWords() {
 	}
 	std::string url;
 	bool scan;
+	std::queue<std::string> temp;
 	while(!urlList.empty()) {
 		scan = true;
 		url = urlList.front();
 		urlList.pop();
+		temp.push(url);
 		usleep(200000); // .2 second delay
 
 		// create connection to url and save html code to a text file
@@ -221,6 +249,16 @@ void WebSearch::StoreWords() {
 			scan = false;
 			
 		}
+		catch(std::bad_alloc& ba) {
+			std::cout<<"Allocation error with:"<<url<<std::endl;
+			std::cout<<"Remainder of URLs will process\n";
+			scan = false;
+		}
+		catch (const std::length_error& le) {
+			std::cout<<"Length error with:"<<url<<std::endl;
+			std::cout<<"Remainder of URLs will process\n";
+			scan = false;
+		}
 		if(scan == true) {
 			// open the text file and scan for urls
 			std::ifstream tempIn("temp.txt");
@@ -238,6 +276,12 @@ void WebSearch::StoreWords() {
 			}	
 		}
 	}
+	// copy urls back to original queue
+	while(!temp.empty()) {
+		url = temp.front();
+		temp.pop();
+		urlList.push(url);
+	}
 }
 
 void WebSearch::PrintWords() {
@@ -246,4 +290,13 @@ void WebSearch::PrintWords() {
 
 void WebSearch::FindWebsite(std::string word) {
 	hTable.Find(word);
+}
+
+void WebSearch::ClearAll() {
+	// clear hash table values
+	hTable.Clear();
+	// clear queue of saved urls
+	while(!urlList.empty()) {
+		urlList.pop();
+	}
 }

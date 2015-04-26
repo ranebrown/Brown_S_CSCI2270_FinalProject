@@ -30,8 +30,7 @@ int main(/*int argc, char *argv[]*/) {
 					break;
 				}
 				else {
-					newSearch->BuildQueue(url, depth);
-					newSearch->StoreWords();	
+					newSearch->BuildQueue(url, depth);	
 				}
 				break;
 			case 2: // Search for a word
@@ -49,7 +48,8 @@ int main(/*int argc, char *argv[]*/) {
 				newSearch->PrintURLs();
 				break;
 			case 5: // Clear saved url's and words
-				
+				newSearch->ClearAll();
+				std::cout<<"Data has been erased.\n";
 				break;
 			case 6: // Print all stored words
 				newSearch->PrintWords();

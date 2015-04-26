@@ -12,7 +12,20 @@ HashTable::HashTable() {
 }
 
 HashTable::~HashTable(){
-	// delete linked list also
+	// delete all linked list word structs and all top url structs in vector
+	for(int i=0; i<tableSize; i++) {
+		if(baseArray[i].next != nullptr) {
+		 	WordStruct *temp = baseArray[i].next;
+		 	WordStruct *prev;
+		 	while(temp->next != nullptr) {
+		 		prev = temp;
+		 		temp = temp->next;
+		 		prev->wOccr.clear();
+		 		delete prev;
+			}
+		}
+	}
+	// delete original array
 	delete [] baseArray;
 }
 
@@ -116,6 +129,10 @@ void HashTable::Find(std::string in_word){
 			if(temp->word == in_word)
 				break;
 		}
+		if(temp->word != in_word) {
+			std::cout << "Word not found\n";
+			return;
+		}
 		for(int i=0; i<(int)temp->wOccr.size(); i++) {
 			if(temp->wOccr[i]->count > max) {
 				max = temp->wOccr[i]->count;
@@ -124,11 +141,6 @@ void HashTable::Find(std::string in_word){
 		}
 		std::cout<<"Best website is: "<<bestURL<<"\n"<<in_word<<" count = "<< max << std::endl;
 	}
-
-}
-
-void HashTable::Delete(std::string in_word){
-
 
 }
 
@@ -163,4 +175,20 @@ int HashTable::HashSum(std::string word){
 	}
 	location = location % tableSize;
 	return location;
+}
+
+void HashTable::Clear() {
+	for(int i=0; i<tableSize; i++) {
+		if(baseArray[i].next != nullptr) {
+		 	WordStruct *temp = baseArray[i].next;
+		 	WordStruct *prev;
+		 	while(temp->next != nullptr) {
+		 		prev = temp;
+		 		temp = temp->next;
+		 		prev->wOccr.clear();
+		 		delete prev;
+			}
+		}
+		baseArray[i].hasValue = false;
+	}
 }

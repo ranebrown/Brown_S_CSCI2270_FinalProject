@@ -65,4 +65,6 @@ Rane Brown
 ##Open issues/bugs
 When using boost in conjunctio with cpp-netlib it is not possible to run lldb debugger. Initial testing was done in Xcode and Xcode would crash when trying to run cppWebSearch. Using a makefile and running from command line seemed to fix issue. When attempting to debug with lldb from the command line recieved "bus error 10".
 
-Due to the above issues debugging was conducted by commenting out sections of code that request a http connection. 
+Due to the above issues debugging was conducted by commenting out sections of code that request a http connection.
+
+If an invalid url is entered it is possible to get memory allocation errors that aren't caught. No solution for this has been found. 

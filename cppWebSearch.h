@@ -32,8 +32,8 @@ class HashTable {
 		~HashTable();
 		void Insert(std::string in_word, std::string url);
 		void Find(std::string in_word);
-		void Delete(std::string in_word);
 		void Print();
+		void Clear();
 	protected:
 	private:
 		int HashSum(std::string word);
@@ -53,6 +53,7 @@ class WebSearch {
 		void StoreWords();
 		void PrintWords();
 		void FindWebsite(std::string word);
+		void ClearAll();
 	protected:
 
 	private:
