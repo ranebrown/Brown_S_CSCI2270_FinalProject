@@ -76,19 +76,19 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 			std::cout<<"Connection error to url: "<<url<<std::endl;
 			scan = false;
 			if(urlList.size() ==1)
-				break;
+				return;
 		}
 		catch(std::bad_alloc& ba) {
 			std::cout<<"Allocation error with:"<<url<<std::endl;
 			scan = false;
 			if(urlList.size() ==1)
-				break;
+				return;
 		}
 		catch (const std::length_error& le) {
 			std::cout<<"Length error with:"<<url<<std::endl;
 			scan = false;
 			if(urlList.size() ==1)
-				break;
+				return;
 		}
 
 		if(scan == true) {
@@ -107,10 +107,17 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 					end = temp.find('"',start); // find the end of the url (assuming url in inside "quotes")
 					if(start != std::string::npos && end != std::string::npos) {
 						std::string foundURL = temp.substr(start, (end-start)); // extract only the url
-						unique = IsUnique(foundURL); // check if found url is unique (hasn't already been found)
-						if(unique == true) {
-							urlList.push(foundURL);
-							tempQ.push(foundURL);
+						std::string valid = "http://";
+						std::string check(foundURL, 0, 7);
+	
+						// Check found url is valid
+						if(valid.compare(check) != 0); // do nothing
+						else {
+							unique = IsUnique(foundURL); // check if found url is unique (hasn't already been found)
+							if(unique == true) {
+								urlList.push(foundURL);
+								tempQ.push(foundURL);
+							}
 						}
 					}
 					if( tempIn.eof() ) break;	
@@ -154,12 +161,12 @@ bool WebSearch::IsUnique(std::string url) {
 * Format of url is http://www."remainder of address"
 */
 void WebSearch::PrintHTML(std::string url) {     
-	std::string valid = "http://www.";
+	std::string valid = "http://";
 	std::string check(url, 0, 11); //writes the first 11 characters of url to string check
 	
 	// Check if a valid url was entered
 	if(valid.compare(check) != 0) {
-		std::cout<<"invalid url\n"<<"url must begin with http://www.\n";
+		std::cout<<"invalid url\n"<<"url must begin with http://\n";
 		return;
 	}
 	
