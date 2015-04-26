@@ -11,34 +11,86 @@
 #include <fstream>
 #include <unistd.h> // for usleep function
 
-/* 
-* Constructor - creates instance of WebSearch class
+
+/*
+Function prototype:
+WebSearch::WebSearch()
+
+Function description:
+Constructor - creates instance of WebSearch class. No required initilization.
+
+Example:
+N/A
+
+Pre-conditions: N/A
+Post-conditions: N/A
 */
 WebSearch::WebSearch() {
 
 }
 
+
 /*
-* Destructor - destroys instance of WebSearch class when it goes out of scope
+Function prototype:
+WebSearch::~WebSearch()
+
+Function description:
+Destructor - destroys instance of WebSearch class when it goes out of scope
+
+Example:
+N/A
+
+Pre-conditions: N/A
+Post-conditions: N/A
 */
 WebSearch::~WebSearch() {
 
 }
 
 /*
-* EnqueSite function accepts the address of a website and adds it to the queue
-* of sites that are waiting to be searched for further links and keywords.
-* Format of url is http://www."remainder of address"
+Function prototype:
+void WebSearch::EnqueueSite(string)
+
+Function description:
+EnqueSite function accepts the address of a website and adds it to the queue
+of sites that are waiting to be searched for further links and keywords.
+Format of url is http://www."remainder of address"
+
+Example:
+WebSearch *newSearch = new WebSearch;
+newSearch.EnqueueSite("http://www.google.com");
+
+Pre-conditions: a valid url must be entered as string 
+Post-conditions: prints the url that was added to queue
 */
 void WebSearch::EnqueueSite(std::string url) {
+	std::string valid = "http://";
+	std::string check(url, 0, 7); //writes the first 7 characters of url to string check
+	
+	// Check if a valid url was entered
+	if(valid.compare(check) != 0) {
+		std::cout<<"invalid url\n"<<"url must begin with http://\n";
+		return;
+	}
 	urlList.push(url);
 	std::cout<<url<<" has been added to queue\n";
 }
 
 /*
-* Build Queue scans each website for links and adds the links to a queue. 
-* The queue is set to be of size depth specified by user. Once the queue is full
-* further searching stops.
+Function prototype:
+void WebSearch::BuildQueue(string, int)
+
+Function description:
+Build Queue scans each website for links and adds the links to a queue. 
+The queue is set to be of size depth specified by user. Once the queue is full
+further searching stops.
+
+Example:
+WebSearch *newSearch = new WebSearch;
+newSearch.BuildQueue("http://www.google.com");
+
+Pre-conditions: a valid url must be entered as string 
+Post-conditions: displays each site as it is processed
 */
 void WebSearch::BuildQueue(std::string url, int depth) {
 	using namespace boost::network;
@@ -132,8 +184,19 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 }
 
 /*
-* Takes a url as input and checks if that url has already been added to queue.
-* If it has already been added returns false. Otherwise returns true.
+Function prototype:
+bool WebSearch::IsUnique(string)
+
+Function description:
+Takes a url as input and checks if that url has already been added to queue.
+If it has already been added returns false. Otherwise returns true.
+
+Example:
+WebSearch *newSearch = new WebSearch;
+newSearch.IsUnique("http://www.google.com");
+
+Pre-conditions: a valid url must be entered as string 
+Post-conditions: returns true or false
 */
 bool WebSearch::IsUnique(std::string url) {
 	bool unique = true;
@@ -159,12 +222,23 @@ bool WebSearch::IsUnique(std::string url) {
 }
 
 /*
-* PrintHTML accepts the url of a website and prints out the associated HTML code to std out
-* Format of url is http://www."remainder of address"
+Function prototype:
+void WebSearch::PrintHTML(string) 
+
+Function description:
+PrintHTML accepts the url of a website and prints out the associated HTML code to std out
+Format of url is http://www."remainder of address"
+
+Example:
+WebSearch *newSearch = new WebSearch;
+newSearch.PrintHTML("http://www.google.com");
+
+Pre-conditions: a valid url must be entered as string 
+Post-conditions: prints the html code to std out
 */
 void WebSearch::PrintHTML(std::string url) {     
 	std::string valid = "http://";
-	std::string check(url, 0, 11); //writes the first 11 characters of url to string check
+	std::string check(url, 0, 7); //writes the first 11 characters of url to string check
 	
 	// Check if a valid url was entered
 	if(valid.compare(check) != 0) {
@@ -196,7 +270,18 @@ void WebSearch::PrintHTML(std::string url) {
 }
 
 /*
-* Prints all saved urls while preserving the original queue
+Function prototype:
+void WebSearch::PrintURLs() 
+
+Function description:
+Prints all saved urls while preserving the original queue
+
+Example:
+WebSearch *newSearch = new WebSearch;
+newSearch.PrintURLs();
+
+Pre-conditions: Must have initialized search with BuildQueue function
+Post-conditions: prints all saved urls or error message
 */
 void WebSearch::PrintURLs() {
 	std::queue<std::string> tempQueue;
@@ -222,8 +307,19 @@ void WebSearch::PrintURLs() {
 }
 
 /*
-* Processes each URL in the queue for words. Function stores each word and the 
-* number of times that word occurs in each website
+Function prototype:
+void WebSearch::StoreWords()
+
+Function description:
+Processes each URL in the queue for words. Function stores each word and the 
+number of times that word occurs in each website
+
+Example:
+WebSearch *newSearch = new WebSearch;
+newSearch.StoreWords();
+
+Pre-conditions: Must have at least one url stored in queue
+Post-conditions: Displays each site as it is processed, creates hash table of stored words
 */
 void WebSearch::StoreWords() {
 	using namespace boost::network;
@@ -298,22 +394,55 @@ void WebSearch::StoreWords() {
 }
 
 /*
-* Prints all stored words
+Function prototype:
+void WebSearch::PrintWords()
+
+Function description:
+Prints all stored words
+
+Example:
+WebSearch *newSearch = new WebSearch;
+newSearch.PrintWords();
+
+Pre-conditions: Must have words stored hash table
+Post-conditions: Displays all stored words to std out
 */
 void WebSearch::PrintWords() {
 	hTable.Print();
 }
 
-/* 
-* Searches for the website that contains the highest occurence of a user specifed word
-* Prints the found website url
+/*
+Function prototype:
+void WebSearch::FindWebsite(string)
+
+Function description:
+Searches for the website that contains the highest occurence of a user specifed word
+Prints the found website url
+
+Example:
+WebSearch *newSearch = new WebSearch;
+newSearch.FindWebsite("it");
+
+Pre-conditions: Must have words stored hash table
+Post-conditions: Prints address of URL with highest occurence of word
 */
 void WebSearch::FindWebsite(std::string word) {
 	hTable.Find(word);
 }
 
 /*
-* Deletes all stored words and URLs
+Function prototype:
+void WebSearch::ClearAll()
+
+Function description:
+Deletes all stored words and URLs
+
+Example:
+WebSearch *newSearch = new WebSearch;
+newSearch.ClearAll();
+
+Pre-conditions: Must initialized queue and have words stored in hashtable
+Post-conditions: Deletes all stored values
 */
 void WebSearch::ClearAll() {
 	// clear hash table values
