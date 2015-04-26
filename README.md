@@ -49,8 +49,8 @@ cppWebSearch is a webcrawler/search engine. The goal of the project is to create
 4. Install boost libraries
   2. `./bootstrap.sh --prefix=/*pathToInstall*`
   2. Run `./b2 install`
-5. Binaries will be installed in /lib subdirectory of installation path
-6. Header files will be installed in /include directory of installation path 
+5. Binaries will be installed in stage/lib subdirectory of installation path
+6. Header files will be installed in /boost subdirectory of installation path 
 
 ##System Requirments
 All code was written and tested on a Mac running OSX Yosemite. 
