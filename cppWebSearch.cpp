@@ -53,6 +53,8 @@ void WebSearch::BuildQueue(std::string url, int depth) {
 
 	while((int)urlList.size() < depth) {
 		scan = true;
+		if(tempQ.empty) // couldn't find enough links to
+			break;
 		url = tempQ.front(); // extract next url and scan for more links
 		tempQ.pop();
 		usleep(200000); // .2 second delay
